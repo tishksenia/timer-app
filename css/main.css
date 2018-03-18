@@ -1,0 +1,17 @@
+body {
+    color: #333;
+}
+
+.timer-app-container {
+    margin: 0 auto;
+    width: 40%;
+}
+
+.single-event {
+    padding: 10px;
+}
+
+h4 {
+    margin: 0;
+    padding-bottom: 10px;
+}
