@@ -87,7 +87,7 @@ function calculateRemainingTimeFromNow(timeAsString) {
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
     
     if(now > time) {
-        return '00:00';
+        return '00:00:00';
     }
     return hours + ':' + minutes + ':' + seconds;
 }
@@ -97,7 +97,7 @@ function calculateRemainingTimeFromNow(timeAsString) {
  */
 function addNewTimer() {
     var new_timer_name = prompt("Enter event's name: ", "Do thing");
-    var new_timer_time = prompt("Enter time: ", "21:23:11");
+    var new_timer_time = prompt("Enter time: ", "21:23");
     var new_timer = {
         "name": new_timer_name,
         "time": new_timer_time

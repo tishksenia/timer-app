@@ -1,17 +1,37 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
 body {
     color: #333333;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .timer-app-container {
     margin: 0 auto;
-    width: 40%;
+    width: 24em;
 }
 
 .single-event {
     padding: 10px;
 }
 
+h1 {
+    
+}
 h4 {
     margin: 0;
     padding-bottom: 10px;
+}
+
+.controls {
+    display: flex;
+    
+    justify-content: space-between;
+}
+
+.timer-app-button {
+    padding: 0.8em 1em;
+    margin-top: 2em;
+    border: 0;
+    background-color: #474747;
+    color: #FFFFFF;
 }
