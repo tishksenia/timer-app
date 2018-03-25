@@ -17,13 +17,21 @@ drawTimersList(events);
 //Event handlers for Add/Delete buttons
 var add_button = document.querySelector('.add-event');
 add_button.onclick = function() {
-    addNewTimer(events);
-    refreshList(events);
+    addNewTimer();
+    refreshList();
 }
 var delete_button = document.querySelector('.delete-event');
 delete_button.onclick = function() {
-    removeTimer(events);
-    refreshList(events);   
+    removeTimer();
+    refreshList();   
+}
+var reset_button = document.querySelector('.reset-events');
+reset_button.onclick = function() {
+    if(confirm("The action will delete all saved timers. Are you sure?")) {
+        events = [];
+        refreshList();
+    }
+    
 }
 
 //Refreshes timers every second

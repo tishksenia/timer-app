@@ -24,14 +24,27 @@ h4 {
 
 .controls {
     display: flex;
-    
     justify-content: space-between;
+    margin-top: 2em;
 }
 
 .timer-app-button {
-    padding: 0.8em 1em;
-    margin-top: 2em;
-    border: 0;
-    background-color: #474747;
-    color: #FFFFFF;
+    height: 2em;
+    min-width: 2em;
+    border-radius: 0.4em;
+    
+    border: 1px solid #333;
+    background-color: transparent;
+    outline: none;
 }
+
+/*
+.add-event {
+    font-size: 1.5em;
+}
+
+.delete-event {
+    font-size: 1em;
+    font-weight: bold;
+}
+*/
