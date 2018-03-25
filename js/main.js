@@ -1,51 +1,42 @@
-var events = [
-    {
-        "name": "Walk a doggo",
-        "time": "06:00"
-    },
-    {
-        "name": "Go to Uni",
-        "time": "07:00"
-    },
-    {
-        "name": "Dinner break",
-        "time": "12:00"
-    },
-    {
-        "name": "Homework",
-        "time": "16:30"
-    },
-    {
-        "name": "Sleep time",
-        "time": "16:00"
-    },
-    {
-        "name": "Now",
-        "time": "2:11"
-    }  
-];
+//Loads saved data from Web Storage, if there's any
+if(localStorage.getItem('events') === null) {
+    var events = [  
+    ];
+} else {
+    var events = JSON.parse(localStorage.getItem('events'));
+}
 
+//Saves data before closing/refreshing browser tab/window
+window.onunload = function(){
+    localStorage.setItem('events', JSON.stringify(events));
+};
+
+//Initializes the list of timers
 drawTimersList(events);
 
+//Event handlers for Add/Delete buttons
 var add_button = document.querySelector('.add-event');
 add_button.onclick = function() {
     addNewTimer(events);
     refreshList(events);
 }
-
 var delete_button = document.querySelector('.delete-event');
 delete_button.onclick = function() {
     removeTimer(events);
-    refreshList(events);
-    
+    refreshList(events);   
 }
+
+//Refreshes timers every second
+var refreshTime = 1000;
+var timerID = window.setInterval(function() {
+        refreshList(events);
+    }, refreshTime);
 
 
 /*
  * Outputs timers list from events array.
- * @param {type} events
  * */
-function drawTimersList(events) {
+function drawTimersList() {
     var timers_list = document.querySelector('.timers-list');
 
     for(var i = 0; i < events.length; i++) {
@@ -69,9 +60,8 @@ function drawTimersList(events) {
 
 /*
  * Refreshes list of timers by deleting all elements and calling drawTimersList with new events array.
- * @param {type} events
  * */
-function refreshList(events) {
+function refreshList() {
     var timers_list = document.querySelector('.timers-list');
     var single_events  = document.querySelectorAll('.single-event');
     for(var i = 0; i < single_events.length; i++) {
@@ -94,20 +84,20 @@ function calculateRemainingTimeFromNow(timeAsString) {
     
     var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)) + 1; //расхождение на +1 минуту
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
     
     if(now > time) {
         return '00:00';
     }
-    return hours + ':' + minutes;
+    return hours + ':' + minutes + ':' + seconds;
 }
 
 /*
  * Asks for user input to get new event name & time. Adds new timer to the events array;
- * @param {type} events
  */
-function addNewTimer(events) {
+function addNewTimer() {
     var new_timer_name = prompt("Enter event's name: ", "Do thing");
-    var new_timer_time = prompt("Enter time: ", "21:23");
+    var new_timer_time = prompt("Enter time: ", "21:23:11");
     var new_timer = {
         "name": new_timer_name,
         "time": new_timer_time
@@ -118,9 +108,8 @@ function addNewTimer(events) {
 /*
  * Asks for user input to get event name. Then finds that name and, if found, deletes it.
  * Otherwise outputs error message.
- * @param {type} events
  */
-function removeTimer(events) {
+function removeTimer() {
     var timer_name_to_delete = prompt("Enter event's name: ", "");
     var index = -1;
     for(var i = 0; i < events.length; i++) {
