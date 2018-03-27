@@ -20,11 +20,6 @@ add_button.onclick = function() {
     addNewTimer();
     refreshList();
 }
-var delete_button = document.querySelector('.delete-event');
-delete_button.onclick = function() {
-    removeTimer();
-    refreshList();   
-}
 var reset_button = document.querySelector('.reset-events');
 reset_button.onclick = function() {
     if(confirm("The action will delete all saved timers. Are you sure?")) {
@@ -53,9 +48,21 @@ function drawTimersList() {
 
         var timer = timers_list.appendChild(single_event);
 
+        
+        var delete_btn = document.createElement('button');
+        delete_btn.nameOfEvent = events[i].name;
+        delete_btn.innerHTML = "delete";
+        delete_btn.className = "timer-app-button delete-timer-button";
+        delete_btn.onclick = function() {
+            if(confirm("Timer with name " + this.nameOfEvent + " will be deleted. Continue?")) {
+                removeTimer(this.nameOfEvent);
+            }
+        }
+        
         var event_name = document.createElement('h4');
         event_name.innerHTML = events[i].name;
         timer.appendChild(event_name);
+        timer.appendChild(delete_btn);
 
         var time_left = document.createElement('span');
         time_left.className = "timer";
@@ -105,20 +112,25 @@ function calculateRemainingTimeFromNow(timeAsString) {
  */
 function addNewTimer() {
     var new_timer_name = prompt("Enter event's name: ", "Do thing");
-    var new_timer_time = prompt("Enter time: ", "21:23");
-    var new_timer = {
-        "name": new_timer_name,
-        "time": new_timer_time
-    };
-    events.push(new_timer);
+    if(new_timer_name != null) 
+        var new_timer_time = prompt("Enter time: ", "21:23");
+    if(new_timer_name != null && new_timer_time != null) {
+        var new_timer = {
+            "name": new_timer_name,
+            "time": new_timer_time
+        };
+        events.push(new_timer);
+    }
+    
 }
 
 /*
  * Asks for user input to get event name. Then finds that name and, if found, deletes it.
  * Otherwise outputs error message.
+ * @name name of the timer to delete
  */
-function removeTimer() {
-    var timer_name_to_delete = prompt("Enter event's name: ", "");
+function removeTimer(name) {
+    var timer_name_to_delete = name;
     var index = -1;
     for(var i = 0; i < events.length; i++) {
         if(events[i].name === timer_name_to_delete) {
