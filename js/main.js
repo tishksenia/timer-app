@@ -41,9 +41,8 @@ var timerID = window.setInterval(function() {
  */
 function redrawCountdowns() {
     var countdowns = document.querySelectorAll('.countdown');
-    var times = document.querySelectorAll('.time');
     for(var i = 0; i < countdowns.length; i++) {
-        countdowns[i].innerHTML = '<i>R:</i> ' + calculateRemainingTimeFromNow( times[i].innerHTML );
+        countdowns[i].innerHTML = '<i>R:</i> ' + calculateRemainingTimeFromNow( events[i].time );
     }
 }
 
