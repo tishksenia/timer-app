@@ -44,7 +44,6 @@ function redrawCountdowns() {
     var times = document.querySelectorAll('.time');
     for(var i = 0; i < countdowns.length; i++) {
         countdowns[i].innerHTML = '<i>R:</i> ' + calculateRemainingTimeFromNow( times[i].innerHTML );
-        console.log(countdowns[i]);
     }
 }
 
