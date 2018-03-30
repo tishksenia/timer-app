@@ -32,9 +32,21 @@ reset_button.onclick = function() {
 //Refreshes timers every second
 var refreshTime = 1000;
 var timerID = window.setInterval(function() {
-        refreshList(events);
+        redrawCountdowns();
     }, refreshTime);
 
+
+/*
+ * Redraws countdowns from timers list.
+ */
+function redrawCountdowns() {
+    var countdowns = document.querySelectorAll('.countdown');
+    var times = document.querySelectorAll('.time');
+    for(var i = 0; i < countdowns.length; i++) {
+        countdowns[i].innerHTML = '<i>R:</i> ' + calculateRemainingTimeFromNow( times[i].innerHTML );
+        console.log(countdowns[i]);
+    }
+}
 
 /*
  * Outputs timers list from events array.
@@ -64,11 +76,14 @@ function drawTimersList() {
         timer.appendChild(event_name);
         timer.appendChild(delete_btn);
 
+        var time = document.createElement('span');
         var time_left = document.createElement('span');
-        time_left.className = "timer";
-        
-        time_left.innerHTML = events[i].time + '<br><i>R:</i> ' +
+        time.className = "timer time";
+        time_left.className = "timer countdown";
+        time.innerHTML = events[i].time;
+        time_left.innerHTML =  '<i>R:</i> ' +
                 calculateRemainingTimeFromNow(events[i].time);
+        timer.appendChild(time);
         timer.appendChild(time_left);
     }
 }
