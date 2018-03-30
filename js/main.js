@@ -151,9 +151,11 @@ function removeTimer(name) {
             index = i;
         }
     }
-    console.log(timer_name_to_delete + '  ' + index);
     if(index === -1)
         alert("We couldn't find element with this name: " + timer_name_to_delete);
-    else
+    else {
         events.splice(index, 1);
+        refreshList();
+    }
+        
 }
